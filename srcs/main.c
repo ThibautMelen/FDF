@@ -18,6 +18,8 @@
 // alias mlx_new_image="man /usr/share/man/man3/mlx_new_image.1"
 // alias mlx_loop="man /usr/share/man/man3/mlx_loop.1"
 
+
+//Paint Part
 void ft_winpaint_fill(t_mlx *data, int color)
 {
 	int i_h;
@@ -36,7 +38,6 @@ void ft_winpaint_fill(t_mlx *data, int color)
 		i_w = 0;
 	}
 }
-
 void ft_winpaint_sqr(t_mlx *data, int size, int x, int y, int color)
 {
 	int i_h;
@@ -67,6 +68,8 @@ void ft_winpaint_sqr(t_mlx *data, int size, int x, int y, int color)
 	}
 }
 
+
+//Evenement Clavier
 int ft_deal_key(int key, t_mlx *data)
 {
   ft_putstr("X\n");
@@ -81,7 +84,7 @@ int ft_deal_key(int key, t_mlx *data)
   return (EXIT_SUCCESS);
 }
 
-
+//Main
 int	main(int argc, char **argv)
 {
 	t_mlx	data;

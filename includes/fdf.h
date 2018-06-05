@@ -44,7 +44,9 @@
 #define LEN_LIGN (data->len_lign)
 #define NB_POINT (data->nb_lign * data->len_lign)
 
-#define PIXEL_SPACE (WIN_X / LEN_LIGN)
+
+// #define PIXEL_SPACE (WIN_X / LEN_LIGN)
+#define PIXEL_SPACE ( ((WIN_X / LEN_LIGN) / 2) + ((WIN_X / LEN_LIGN) / 3) )
 #define PIXEL_SPACE_START (PIXEL_SPACE / 2)
 
 //MLX STUFF
@@ -73,11 +75,19 @@ typedef struct	s_mlx
   //base
 	void		*mlx_ptr;
 	void		*mlx_win;
+
+	//TAB IMAGE
 	t_mlximg		img;
 
 	//POINT
 	t_point p1;
 	t_point p2;
+
+	//SPACE POINT
+	t_point p_space;
+
+	//STAR POINT
+	t_point p_start;
 
   //content option
   char *content;
@@ -85,8 +95,6 @@ typedef struct	s_mlx
   int nb_lign;
   int len_lign;
 
-	//spef window
-	int pixel_space;
 
 	//A SUPP
 	// char **av;
