@@ -19,68 +19,72 @@
 // alias mlx_loop="man /usr/share/man/man3/mlx_loop.1"
 
 
-//Paint Part
-void ft_winpaint_fill(t_mlx *data, int color)
-{
-	int i_h;
-	int i_w;
-
-	i_h = 0;
-	i_w = 0;
-	while (i_h < WIN_Y)
-	{
-		while (i_w < WIN_X)
-		{
-			data->img.tab_img[i_h * WIN_X + i_w] = color;
-			i_w++;
-		}
-		i_h++;
-		i_w = 0;
-	}
-}
-void ft_winpaint_sqr(t_mlx *data, int size, int x, int y, int color)
-{
-	int i_h;
-	int i_w;
-	int stop_x;
-	int stop_y;
-
-	i_h = 0;
-	i_w = 0;
-	stop_x = 0;
-	stop_y = 0;
-	while (i_h < WIN_Y)
-	{
-		while (i_w < WIN_X)
-		{
-			if (i_h >= x && i_w >= y && stop_x <= size && stop_y <= size)
-			{
-				data->img.tab_img[i_h * WIN_X + i_w] = color;
-				stop_x++;
-			}
-			i_w++;
-		}
-		i_h++;
-		if (i_h >= x && i_w >= y)
-			stop_y++;
-		stop_x = 0;
-		i_w = 0;
-	}
-}
-
-
 //Evenement Clavier
 int ft_deal_key(int key, t_mlx *data)
 {
   ft_putstr("X\n");
   ft_putnbr(key);
+
+  // UP / DOWN
   if(key == KEY_DOWN)
-    ft_winpaint_fill(data, COLOR_DRAGON_SKIN);
-	if(key == KEY_UP)
-	   ft_winpaint_fill(data, COLOR_BLUE_JUST);
-	if(key == KEY_RIGHT)
-		ft_winpaint_sqr(data, /*ft_atoi((data->av)[1])*/50, 70, 80, COLOR_RED_AMOUR);
+  {
+    data->p_start.x += 10;
+    ft_winpaint_fill(data, COLOR_BLACK);
+    ft_map_resolver(data);
+  }
+	else if(key == KEY_UP)
+  {
+	   data->p_start.x -= 10;
+     ft_winpaint_fill(data, COLOR_BLACK);
+     ft_map_resolver(data);
+  }
+
+  // LEFT / RIGHT
+  if(key == KEY_RIGHT)
+  {
+    data->p_start.y += 10;
+    ft_winpaint_fill(data, COLOR_BLACK);
+    ft_map_resolver(data);
+  }
+	else if(key == KEY_LEFT)
+  {
+	   data->p_start.y -= 10;
+     ft_winpaint_fill(data, COLOR_BLACK);
+     ft_map_resolver(data);
+  }
+
+  // + / -
+  if(key == KEY_PLUS)
+  {
+    data->p_space.x += 2;
+    data->p_space.y += 2;
+    ft_winpaint_fill(data, COLOR_BLACK);
+    ft_map_resolver(data);
+  }
+  else if(key == KEY_MOINS)
+  {
+    data->p_space.x -= 2;
+    data->p_space.y -= 2;
+     ft_winpaint_fill(data, COLOR_BLACK);
+     ft_map_resolver(data);
+  }
+
+  // + / - 2
+  if(key == KEY_PLUS_2)
+  {
+    data->alti_scale += 5;
+    ft_winpaint_fill(data, COLOR_BLACK);
+    ft_map_resolver(data);
+  }
+  else if(key == KEY_MOINS_2)
+  {
+    data->alti_scale -= 5;
+     ft_winpaint_fill(data, COLOR_BLACK);
+     ft_map_resolver(data);
+  }
+
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.img_ptr, 0, 0);
+
   return (EXIT_SUCCESS);
 }
 
@@ -95,9 +99,7 @@ int	main(int argc, char **argv)
 
 	///// MLX INIT
 	// Mlx init
-	ft_mlx_start(&data);
-	mlx_put_image_to_window(data.mlx_ptr, data.mlx_win, data.img.tab_img, 0, 0);
-
+	ft_mlx_start(&data, argv[1]);
 
 	// ///// READ CONTENT
 	//mets la map dans content sans les '\n' (echange contre espace)
@@ -110,14 +112,19 @@ int	main(int argc, char **argv)
 	//parse la map en int >> data.tab_content
 	ft_parse_map(&data);
 
+
+
 	///
 	// ///// FDF RESOLVER
+
+  ft_init_resolver(&data);
+
 	ft_map_resolver(&data);
 
 
 	//Affichage de l'image dans la fenetre
 	mlx_put_image_to_window(data.mlx_ptr, data.mlx_win, data.img.tab_img, 0, 0);
-	//EVENT
+	// EVENT
 	//Evenement clavier
   mlx_hook(data.mlx_win, 2, 5, &ft_deal_key, &data);
   mlx_loop(data.mlx_ptr);

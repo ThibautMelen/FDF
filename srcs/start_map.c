@@ -16,19 +16,16 @@
 //TO SUPP
 void ft_display_tab_content(t_mlx	*data)
 {
-  int p;
   int i;
   int j;
   i = 0;
   j = 0;
-  p = 0;
   while(i < data->nb_lign)
   {
     while (j < data->len_lign)
     {
-      ft_putnbr(data->tab_content[p]);
+      ft_putnbr(data->tab_content[i][j]);
       ft_putstr(" ");
-      p++;
       j++;
     }
     ft_putchar('\n');
@@ -36,7 +33,7 @@ void ft_display_tab_content(t_mlx	*data)
     i++;
   }
 }
-//
+
 
 static int ft_len_lign(char *str)
 {
@@ -59,23 +56,39 @@ void ft_parse_map(t_mlx	*data)
 {
   int i;
   int j;
+  int p;
 
   i = 0;
   j = 0;
-  if(!(data->tab_content = malloc(sizeof(int) * (data->len_lign * data->nb_lign))))
+  p = 0;
+  printf("A\n");
+  if(!(data->tab_content = malloc(sizeof(int*) * (data->nb_lign))))
     ft_exit_program(MALLOC_ERROR);
-  while(data->content[i])
+
+  while(i < data->nb_lign)
   {
-    if(data->content[i] >= '0' && data->content[i] <= '9')
+    printf("B\n");
+    if(!((data->tab_content)[i] = malloc(sizeof(int**) * (data->len_lign))))
+      ft_exit_program(MALLOC_ERROR);
+    while(j < data->len_lign)
     {
-      data->tab_content[j] = ft_atoi(data->content + i);
-      while(data->content[i] >= '0' && data->content[i] <= '9')
-        i++;
-      j++;
+      printf("C\n");
+      printf("data->content[p] : %c\n", data->content[p]);
+      if(data->content[p] >= '0' && data->content[p] <= '9')
+      {
+          data->tab_content[i][j] = ft_atoi(data->content + p);
+          while(data->content[p] >= '0' && data->content[p] <= '9')
+            p++;
+          j++;
+      }
+      while(!(data->content[p] >= '0' && data->content[p] <= '9'))
+        p++;
     }
+    j = 0;
     i++;
   }
   //TO SUPP
+  printf("DISPLAY TAB CONTENT \n");
   ft_display_tab_content(data);
 }
 

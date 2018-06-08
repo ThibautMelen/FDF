@@ -18,7 +18,9 @@ SRCS	= main.c \
 				start_map.c \
 				start_mlx.c \
 				resolver_map.c \
-				draw_stroke.c
+				draw_stroke.c \
+				art_tools.c
+
 
 OBJ_DIR = obj
 OBJS	= $(SRCS:.c=.o)
