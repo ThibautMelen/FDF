@@ -61,19 +61,15 @@ void ft_parse_map(t_mlx	*data)
   i = 0;
   j = 0;
   p = 0;
-  printf("A\n");
-  if(!(data->tab_content = malloc(sizeof(int*) * (data->nb_lign))))
+  if(!(data->tab_content = (int**)malloc(sizeof(int*) * (data->nb_lign))))
     ft_exit_program(MALLOC_ERROR);
 
   while(i < data->nb_lign)
   {
-    printf("B\n");
-    if(!((data->tab_content)[i] = malloc(sizeof(int**) * (data->len_lign))))
+    if(!((data->tab_content)[i] = (int*)malloc(sizeof(int**) * (data->len_lign))))
       ft_exit_program(MALLOC_ERROR);
     while(j < data->len_lign)
     {
-      printf("C\n");
-      printf("data->content[p] : %c\n", data->content[p]);
       if(data->content[p] >= '0' && data->content[p] <= '9')
       {
           data->tab_content[i][j] = ft_atoi(data->content + p);
@@ -87,9 +83,13 @@ void ft_parse_map(t_mlx	*data)
     j = 0;
     i++;
   }
+
+  free(data->content);
+
   //TO SUPP
   printf("DISPLAY TAB CONTENT \n");
   ft_display_tab_content(data);
+
 }
 
 void ft_check_map(t_mlx	*data)
@@ -124,11 +124,17 @@ void ft_read_map(char *path, t_mlx	*data)
 		tmp = data->content;
 		if (!(data->content = ft_strjoin(tmp, line)))
 			ft_exit_program(MALLOC_ERROR);
+    free(tmp);
     tmp = data->content;
     if (!(data->content = ft_strjoin(tmp, " ")))
       ft_exit_program(MALLOC_ERROR);
 		free(tmp);
     data->nb_lign++;
+    free(line);
   }
   data->len_lign = ft_len_lign(line);
+
+  // printf("%s\n", data->content);
+
+  // while (1);
 }

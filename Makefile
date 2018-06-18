@@ -6,7 +6,7 @@
 #    By: thmelen <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/25 17:24:23 by thmelen           #+#    #+#              #
-#    Updated: 2018/04/25 17:24:50 by thmelen          ###   ########.fr        #
+#    Updated: 2018/06/15 16:37:37 by thmelen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,14 +19,15 @@ SRCS	= main.c \
 				start_mlx.c \
 				resolver_map.c \
 				draw_stroke.c \
-				art_tools.c
+				art_tools.c \
+				event_mlx.c \
+				mlx_free.c
 
 
 OBJ_DIR = obj
 OBJS	= $(SRCS:.c=.o)
 CC		= gcc
 CFLAGS	= -Wall -Werror -Wextra
-OFLAGS	= -pipe -flto
 OFLAGS	= -pipe -flto
 MLXFLAGS = -L/usr/local/lib/ -I/usr/local/include -lmlx -framework OpenGL -framework AppKit
 LIB_DIR	= libft

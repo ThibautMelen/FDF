@@ -19,74 +19,7 @@
 // alias mlx_loop="man /usr/share/man/man3/mlx_loop.1"
 
 
-//Evenement Clavier
-int ft_deal_key(int key, t_mlx *data)
-{
-  ft_putstr("X\n");
-  ft_putnbr(key);
 
-  // UP / DOWN
-  if(key == KEY_DOWN)
-  {
-    data->p_start.x += 10;
-    ft_winpaint_fill(data, COLOR_BLACK);
-    ft_map_resolver(data);
-  }
-	else if(key == KEY_UP)
-  {
-	   data->p_start.x -= 10;
-     ft_winpaint_fill(data, COLOR_BLACK);
-     ft_map_resolver(data);
-  }
-
-  // LEFT / RIGHT
-  if(key == KEY_RIGHT)
-  {
-    data->p_start.y += 10;
-    ft_winpaint_fill(data, COLOR_BLACK);
-    ft_map_resolver(data);
-  }
-	else if(key == KEY_LEFT)
-  {
-	   data->p_start.y -= 10;
-     ft_winpaint_fill(data, COLOR_BLACK);
-     ft_map_resolver(data);
-  }
-
-  // + / -
-  if(key == KEY_PLUS)
-  {
-    data->p_space.x += 2;
-    data->p_space.y += 2;
-    ft_winpaint_fill(data, COLOR_BLACK);
-    ft_map_resolver(data);
-  }
-  else if(key == KEY_MOINS)
-  {
-    data->p_space.x -= 2;
-    data->p_space.y -= 2;
-     ft_winpaint_fill(data, COLOR_BLACK);
-     ft_map_resolver(data);
-  }
-
-  // + / - 2
-  if(key == KEY_PLUS_2)
-  {
-    data->alti_scale += 5;
-    ft_winpaint_fill(data, COLOR_BLACK);
-    ft_map_resolver(data);
-  }
-  else if(key == KEY_MOINS_2)
-  {
-    data->alti_scale -= 5;
-     ft_winpaint_fill(data, COLOR_BLACK);
-     ft_map_resolver(data);
-  }
-
-	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.img_ptr, 0, 0);
-
-  return (EXIT_SUCCESS);
-}
 
 //Main
 int	main(int argc, char **argv)
@@ -122,12 +55,13 @@ int	main(int argc, char **argv)
 	ft_map_resolver(&data);
 
 
-	//Affichage de l'image dans la fenetre
-	mlx_put_image_to_window(data.mlx_ptr, data.mlx_win, data.img.tab_img, 0, 0);
 	// EVENT
 	//Evenement clavier
   mlx_hook(data.mlx_win, 2, 5, &ft_deal_key, &data);
   mlx_loop(data.mlx_ptr);
 
+
+
+  // mlx_free_tabcontent(&data);
 	return (EXIT_SUCCESS);
 }

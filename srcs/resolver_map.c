@@ -75,7 +75,4 @@ void ft_map_resolver(t_mlx	*data)
     i = 0;
     j++;
   }
-
-  //PUT 42 SUR WIN AVEC ESPACE
-
 }

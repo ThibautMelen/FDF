@@ -132,8 +132,9 @@ void ft_map_resolver(t_mlx	*data);
 void ft_init_resolver(t_mlx	*data);
 void ft_draw_stroke(t_point p1, t_point p2, t_mlx *data);
 void ft_display_tab_content(t_mlx	*data);
-
+int ft_deal_key(int key, t_mlx *data);
 void ft_winpaint_fill(t_mlx *data, int color);
 void ft_winpaint_sqr(t_mlx *data, int size, int x, int y, int color);
+void mlx_free_tabcontent(t_mlx *data);
 
 #endif
