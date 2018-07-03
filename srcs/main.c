@@ -12,15 +12,6 @@
 
 #include "../includes/fdf.h"
 
-// alias data="man /usr/share/man/man3/data.1"
-// alias mlx_new_window="man /usr/share/man/man3/mlx_new_window.1"
-// alias mlx_pixel_put="man /usr/share/man/man3/mlx_pixel_put.1"
-// alias mlx_new_image="man /usr/share/man/man3/mlx_new_image.1"
-// alias mlx_loop="man /usr/share/man/man3/mlx_loop.1"
-
-
-
-
 //Main
 int	main(int argc, char **argv)
 {
@@ -46,22 +37,13 @@ int	main(int argc, char **argv)
 	ft_parse_map(&data);
 
 
-
-	///
 	// ///// FDF RESOLVER
-
   ft_init_resolver(&data);
-
 	ft_map_resolver(&data);
 
 
 	// EVENT
-	//Evenement clavier
   mlx_hook(data.mlx_win, 2, 5, &ft_deal_key, &data);
   mlx_loop(data.mlx_ptr);
-
-
-
-  // mlx_free_tabcontent(&data);
 	return (EXIT_SUCCESS);
 }

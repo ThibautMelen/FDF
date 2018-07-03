@@ -13,33 +13,10 @@
 
 #include "../includes/fdf.h"
 
-//TO SUPP
-void ft_display_tab_content(t_mlx	*data)
-{
-  int i;
-  int j;
-  i = 0;
-  j = 0;
-  while(i < data->nb_lign)
-  {
-    while (j < data->len_lign)
-    {
-      ft_putnbr(data->tab_content[i][j]);
-      ft_putstr(" ");
-      j++;
-    }
-    ft_putchar('\n');
-    j = 0;
-    i++;
-  }
-}
-
-
 static int ft_len_lign(char *str)
 {
   int i;
   int len_lign;
-
 
   i = 0;
   len_lign = 0;
@@ -63,7 +40,6 @@ void ft_parse_map(t_mlx	*data)
   p = 0;
   if(!(data->tab_content = (int**)malloc(sizeof(int*) * (data->nb_lign))))
     ft_exit_program(MALLOC_ERROR);
-
   while(i < data->nb_lign)
   {
     if(!((data->tab_content)[i] = (int*)malloc(sizeof(int**) * (data->len_lign))))
@@ -83,13 +59,7 @@ void ft_parse_map(t_mlx	*data)
     j = 0;
     i++;
   }
-
   free(data->content);
-
-  //TO SUPP
-  printf("DISPLAY TAB CONTENT \n");
-  ft_display_tab_content(data);
-
 }
 
 void ft_check_map(t_mlx	*data)
@@ -106,8 +76,6 @@ void ft_check_map(t_mlx	*data)
 		else
 			ft_exit_program(CONTENT_ERROR);
 	}
-  // if ((data->len_lign *  data->nb_lign) <= 1)
-  //   ft_exit_program(CONTENT_ERROR);
 }
 
 void ft_read_map(char *path, t_mlx	*data)
@@ -133,8 +101,4 @@ void ft_read_map(char *path, t_mlx	*data)
     free(line);
   }
   data->len_lign = ft_len_lign(line);
-
-  // printf("%s\n", data->content);
-
-  // while (1);
 }
