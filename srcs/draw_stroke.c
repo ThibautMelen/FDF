@@ -6,13 +6,13 @@
 /*   By: thmelen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/26 18:47:47 by thmelen           #+#    #+#             */
-/*   Updated: 2018/05/26 18:47:55 by thmelen          ###   ########.fr       */
+/*   Updated: 2018/07/03 21:14:10 by thmelen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-static void ft_draw_stroke_up(t_point p1, t_point p2, t_mlx *data)
+static	void	ft_draw_stroke_up(t_point p1, t_point p2, t_mlx *data)
 {
 	int x;
 	int y;
@@ -27,7 +27,7 @@ static void ft_draw_stroke_up(t_point p1, t_point p2, t_mlx *data)
 	}
 }
 
-static void ft_draw_stroke_down(t_point p1, t_point p2, t_mlx *data)
+static	void	ft_draw_stroke_down(t_point p1, t_point p2, t_mlx *data)
 {
 	int x;
 	int y;
@@ -42,7 +42,7 @@ static void ft_draw_stroke_down(t_point p1, t_point p2, t_mlx *data)
 	}
 }
 
-void ft_draw_stroke(t_point p1, t_point p2, t_mlx *data)
+void			ft_draw_stroke(t_point p1, t_point p2, t_mlx *data)
 {
 	int x;
 	int y;
@@ -51,16 +51,16 @@ void ft_draw_stroke(t_point p1, t_point p2, t_mlx *data)
 	y = ft_abs(p1.y - p2.y);
 	if (x > y)
 	{
-  	if (p1.x <= p2.x)
-    	ft_draw_stroke_down(p1, p2, data);
+		if (p1.x <= p2.x)
+			ft_draw_stroke_down(p1, p2, data);
 		else
-    	ft_draw_stroke_down(p2, p1, data);
+			ft_draw_stroke_down(p2, p1, data);
 	}
 	else
 	{
-  	if (p1.y < p2.y)
-    	ft_draw_stroke_up(p1, p2, data);
+		if (p1.y < p2.y)
+			ft_draw_stroke_up(p1, p2, data);
 		else
-    	ft_draw_stroke_up(p2, p1, data);
+			ft_draw_stroke_up(p2, p1, data);
 	}
 }
