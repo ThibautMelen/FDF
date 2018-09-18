@@ -23,7 +23,6 @@ SRCS	= main.c \
 				event_mlx.c \
 				mlx_free.c
 
-
 OBJ_DIR = obj
 OBJS	= $(SRCS:.c=.o)
 CC		= gcc
