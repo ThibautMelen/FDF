@@ -10,11 +10,15 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= fdf
-INC		= includes
-SRC_DIR = srcs
+NAME    = fdf
 
-SRCS	= main.c \
+INC_DIR = includes
+INC     = fdf.h
+SRC_DIR = srcs
+LIB_DIR = libft
+BIN_DIR = bin
+
+SRC     = main.c \
 				start_map.c \
 				start_mlx.c \
 				resolver_map.c \
@@ -23,34 +27,37 @@ SRCS	= main.c \
 				event_mlx.c \
 				mlx_free.c
 
-OBJ_DIR = obj
-OBJS	= $(SRCS:.c=.o)
-CC		= gcc
-CFLAGS	= -Wall -Werror -Wextra
-OFLAGS	= -pipe -flto
+SRC     := $(addprefix $(SRC_DIR)/,$(SRC))
+BIN     = $(subst $(SRC_DIR),$(BIN_DIR),$(SRC:.c=.o))
+LIB     = libft.a
+
+FLAG    = -g -Ofast -flto -march=native -Wall -Wextra -Werror
 MLXFLAGS = -L/usr/local/lib/ -I/usr/local/include -lmlx -framework OpenGL -framework AppKit
-LIB_DIR	= libft
-LIB		= libft.a
 
-%.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) -I $(INC) -c $<
+all:
+	@$(MAKE) -C $(LIB_DIR) --no-print-directory
+	@$(MAKE) -C . $(NAME) --no-print-directory
 
-$(NAME): lib $(OBJS)
-	$(CC) $(CFLAGS) $(OFLAGS) $(MLXFLAGS) $(OBJS) $(LIB_DIR)/$(LIB) -o $(NAME)
-	@mkdir -p $(OBJ_DIR) 2> /dev/null
-	@mv $(OBJS) $(OBJ_DIR)/
+$(BIN_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(BIN_DIR) 2> /dev/null
+	@gcc $(FLAG) -I$(LIB_DIR)/include -I$(INC_DIR) -o $@ -c $<
+	@printf "\33[2K $$> %s\r" "gcc $(FLAG) -I$(LIB_DIR)/include -I$(INC_DIR) -o $@ -c $<"
 
-# Essentials
-all: $(NAME)
+$(LIB_DIR)/$(LIB):
+	@$(MAKE) -C $(LIB_DIR) --no-print-directory
+
+$(NAME): $(LIB_DIR)/$(LIB) $(INC_DIR)/$(INC) $(BIN)
+	@gcc $(BIN) $(MLXFLAGS) $(LIB_DIR)/$(LIB) -o $(NAME)
+	@printf "\33[2K$(NAME) [\e[1;32m✓\e[0;39m]\n"
+
 clean:
-	rm -rf $(OBJ_DIR)
-	$(MAKE) -C $(LIB_DIR) clean
-fclean:
-	rm -rf $(OBJ_DIR)
-	rm -f $(NAME)
-	$(MAKE) -C $(LIB_DIR) fclean
+	@$(MAKE) -C $(LIB_DIR) clean --no-print-directory
+	@rm -rf $(BIN_DIR)
+fclean: clean
+	@$(MAKE) -C $(LIB_DIR) fclean --no-print-directory
+	@rm -f $(NAME)
 re: fclean all
-
-# Libft
 lib:
-	$(MAKE) -C $(LIB_DIR)
+	@$(MAKE) -C $(LIB_DIR) --no-print-directory
+
+.PHONY: all clean fclean re lib

@@ -31,10 +31,13 @@
 # define WIN_Y WIN_XY
 # define WIN_NBPIXEL (WIN_X * WIN_Y)
 # define KEY_ESC 53
-# define KEY_UP 126
-# define KEY_DOWN 125
-# define KEY_LEFT 123
-# define KEY_RIGHT 124
+
+# define KEY_UP 123
+# define KEY_DOWN 124
+
+# define KEY_LEFT 126
+# define KEY_RIGHT 125
+
 # define KEY_PLUS 69
 # define KEY_MOINS 78
 # define KEY_PLUS_2 24
@@ -79,7 +82,6 @@ typedef struct	s_mlx
 	t_point		p2;
 	t_point		p_space;
 	t_point		p_start;
-	t_point		p_altitude;
 }				t_mlx;
 
 void			ft_read_map(char *path, t_mlx	*data);
