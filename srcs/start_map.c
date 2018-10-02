@@ -6,7 +6,7 @@
 /*   By: thmelen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/11 06:07:26 by thmelen           #+#    #+#             */
-/*   Updated: 2018/10/01 15:01:34 by thmelen          ###   ########.fr       */
+/*   Updated: 2018/10/02 16:58:37 by thmelen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ static void		ft_parsing(t_mlx *data, int i, int j, int p)
 {
 	while (i < data->nb_lign)
 	{
-		if (!((data->tab_content)[i] = (int*)malloc(sizeof(int**)
+		if (!((data->tab_content)[i] = (int*)malloc(sizeof(int)
 						* (data->len_lign))))
 			ft_exit_program(MALLOC_ERROR);
 		while (j < data->len_lign)
 		{
-			if (data->content[p] >= '0' && data->content[p] <= '9')
+			if ((data->content[p] >= '0' && data->content[p] <= '9')
+			|| data->content[p] == '-')
 			{
 				data->tab_content[i][j] = ft_atoi(data->content + p);
 				while (data->content[p] != ' ')
@@ -74,9 +75,7 @@ void			ft_check_map(t_mlx *data)
 	i = 0;
 	while (data->content[i])
 	{
-		if ((data->content[i] >= '0' && data->content[i] <= '9') || \
-				data->content[i] == '-' || (data->content[i] >= 0 && \
-					data->content[i] <= 32) || data->content[i] == 127)
+		if (ft_isprint(data->content[i]))
 			i++;
 		else
 			ft_exit_program(CONTENT_ERROR);
@@ -104,7 +103,9 @@ void			ft_read_map(char *path, t_mlx *data)
 			ft_exit_program(MALLOC_ERROR);
 		free(tmp);
 		data->nb_lign++;
+		data->len_lign = ft_len_lign(line);
+		if (!ft_isprint(line[0]))
+			ft_exit_program(CONTENT_ERROR);
 		free(line);
 	}
-	data->len_lign = ft_len_lign(line);
 }

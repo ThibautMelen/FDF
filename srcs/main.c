@@ -22,6 +22,7 @@ int	main(int argc, char **argv)
 	ft_read_map(argv[1], &data);
 	ft_parse_map(&data);
 	ft_init_resolver(&data);
+	data.color = COLOR_RED_AMOUR;
 	ft_map_resolver(&data);
 	mlx_hook(data.mlx_win, 2, 5, &ft_deal_key, &data);
 	mlx_put_image_to_window(data.mlx_ptr, data.mlx_win, data.img.img_ptr, 0, 0);

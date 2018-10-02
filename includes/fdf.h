@@ -31,13 +31,10 @@
 # define WIN_Y WIN_XY
 # define WIN_NBPIXEL (WIN_X * WIN_Y)
 # define KEY_ESC 53
-
 # define KEY_UP 123
 # define KEY_DOWN 124
-
 # define KEY_LEFT 126
 # define KEY_RIGHT 125
-
 # define KEY_PLUS 69
 # define KEY_MOINS 78
 # define KEY_PLUS_2 24
@@ -76,6 +73,7 @@ typedef struct	s_mlx
 	int			**tab_content;
 	int			nb_lign;
 	int			len_lign;
+	int			color;
 
 	t_mlximg	img;
 	t_point		p1;
