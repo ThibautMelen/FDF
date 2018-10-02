@@ -88,7 +88,8 @@ void			ft_read_map(char *path, t_mlx *data)
 	char	*tmp;
 	int		fd;
 
-	fd = ft_open_file(path);
+	if ((fd = open(path, O_RDONLY)) < 0)
+		ft_exit_program(CONTENT_ERROR);
 	tmp = NULL;
 	data->nb_lign = 0;
 	data->content = ft_strnew('\0');
